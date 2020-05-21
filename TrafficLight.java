@@ -35,3 +35,4 @@ public class TrafficLight {
             currentColor = "green";
     }
 }
+   
