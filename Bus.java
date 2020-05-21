@@ -6,12 +6,5 @@ public class Bus extends Car {
         width = 45;
         height = 15;
     }
-    public void paintMeHorizontal(Graphics g){
-        g.setColor(Color.RED);
-        g.fillRect(xPos, yPos, width, height);
-    }
-    public void paintMeVertical(Graphics g){
-        g.setColor(Color.RED);
-        g.fillRect(yPos, xPos, height, width);
-    }
+   
 }
