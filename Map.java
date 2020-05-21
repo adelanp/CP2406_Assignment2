@@ -17,4 +17,4 @@ public class Map{
         trafficLights.add(light);
     }
 
-
+}
