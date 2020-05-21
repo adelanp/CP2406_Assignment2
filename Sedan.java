@@ -14,3 +14,4 @@ public class Sedan extends Car{
         g.setColor(Color.BLUE);
         g.fillRect(yPos, xPos, height, width);
     }
+}
