@@ -18,36 +18,27 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
     private int getY(){
         return y;
     }
-    //north container
+    private ButtonGroup selections = new ButtonGroup();
+    private JRadioButton horizontal = new JRadioButton("horizontal");
+    private JRadioButton vertical = new JRadioButton("vertical");
+    private ButtonGroup selections2 = new ButtonGroup();
+    private JRadioButton hasLight = new JRadioButton("traffic light");
+    private JLabel label = new JLabel("Enter road length");
+    private JTextField length = new JTextField("");
+    private ButtonGroup selections3 = new ButtonGroup();
     private JLabel info = new JLabel("Set road position : ");
     private JLabel labelXPosField = new JLabel("x position");
     private JTextField xPosField = new JTextField("0");
     private JLabel labelYPosField = new JLabel("y position");
     private JTextField yPosField = new JTextField("0");
     private Container north = new Container();
-
-    //south container
     private JButton startSim = new JButton("start");
     private JButton removeRoad = new JButton("remove changes");
     private Container south = new Container();
-
-    //west container
     private Container west = new Container();
     private JButton addSedan = new JButton("add car");
     private JButton addBus = new JButton("add bus");
     private JButton addRoad = new JButton("add road");
-    //road orientation selection
-    private ButtonGroup selections = new ButtonGroup();
-    private JRadioButton horizontal = new JRadioButton("horizontal");
-    private JRadioButton vertical = new JRadioButton("vertical");
-    //has traffic light selection
-    private ButtonGroup selections2 = new ButtonGroup();
-    private JRadioButton hasLight = new JRadioButton("traffic light");
-    //road length
-    private JLabel label = new JLabel("Enter road length");
-    private JTextField length = new JTextField("");
-    //traffic direction
-    private ButtonGroup selections3 = new ButtonGroup();
 
 
     private Simulator(){
@@ -57,7 +48,7 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
         frame.setLayout(new BorderLayout());
         frame.add(roadStart, BorderLayout.CENTER);
         roadStart.addMouseListener(this);
-        //north side info
+
         north.setLayout(new GridLayout(1, 5));
         north.add(info);
         north.add(labelXPosField);
@@ -66,7 +57,6 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
         north.add(yPosField);
         frame.add(north, BorderLayout.NORTH);
 
-        //buttons on the south side
         south.setLayout(new GridLayout(1, 3));
         south.add(startSim);
         startSim.addActionListener(this);
@@ -74,26 +64,6 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
         removeRoad.addActionListener(this);
         frame.add(south, BorderLayout.SOUTH);
 
-        //buttons on west side
-        west.setLayout(new GridLayout(13,1));
-        west.add(addSedan);
-        addSedan.addActionListener(this);
-        west.add(addBus);
-        addBus.addActionListener(this);
-        west.add(addRoad);
-        addRoad.addActionListener(this);
-        west.add(label);
-        west.add(length);
-        length.addActionListener(this);
-
-        //radio buttons on west side
-        selections.add(vertical);
-        selections.add(horizontal);
-        west.add(vertical);
-        vertical.addActionListener(this);
-        horizontal.setSelected(true);
-        west.add(horizontal);
-        horizontal.addActionListener(this);
 
         selections2.add(hasLight);
         west.add(hasLight);
@@ -105,11 +75,40 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
         Map.trafficLights.add(light);
         frame.repaint();
 
+        west.setLayout(new GridLayout(13,1));
+        west.add(addSedan);
+        addSedan.addActionListener(this);
+        west.add(addBus);
+        addBus.addActionListener(this);
+        west.add(addRoad);
+        addRoad.addActionListener(this);
+        west.add(label);
+        west.add(length);
+        length.addActionListener(this);
+
+        selections.add(vertical);
+        selections.add(horizontal);
+        west.add(vertical);
+        vertical.addActionListener(this);
+        horizontal.setSelected(true);
+        west.add(horizontal);
+        horizontal.addActionListener(this);
+
+
     }
 
     public static void main(String[] args){
         new Simulator();
         Map map = new Map();
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e){
+        x = e.getX();
+        y = e.getY();
+        xPosField.setText(Integer.toString(getX()));
+        yPosField.setText(Integer.toString(getY()));
     }
 
     @Override
@@ -202,13 +201,7 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
 
         }
     }
-    @Override
-    public void mouseClicked(MouseEvent e){
-        x = e.getX();
-        y = e.getY();
-        xPosField.setText(Integer.toString(getX()));
-        yPosField.setText(Integer.toString(getY()));
-    }
+
     @Override
     public void mousePressed(MouseEvent e){}
 
@@ -222,6 +215,7 @@ public class Simulator implements ActionListener, Runnable, MouseListener {
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
+
 
     @Override
     public void run() {
